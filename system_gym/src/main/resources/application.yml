@@ -4,8 +4,11 @@ spring:
     username: ${USER}
     password: ${PASSWORD}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
