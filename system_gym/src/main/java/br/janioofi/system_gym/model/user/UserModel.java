@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotEmpty;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id_user;
+    @Column(name = "id_user")
+    private String idUser;
 
     @NotEmpty
     @Column(unique = true, length = 30, nullable = false)
@@ -26,19 +27,19 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String id_user, String login, String password, UserRole role) {
-        this.id_user = id_user;
+    public UserModel(String idUser, String login, String password, UserRole role) {
+        this.idUser = idUser;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getLogin() {
