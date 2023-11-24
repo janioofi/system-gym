@@ -1,1 +1,0 @@
-CREATE TYPE time_type AS ENUM('DAY', 'NIGHT');

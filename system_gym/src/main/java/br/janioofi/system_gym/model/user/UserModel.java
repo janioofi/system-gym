@@ -2,12 +2,15 @@ package br.janioofi.system_gym.model.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_user")
 public class UserModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_user")
     private String idUser;
 
@@ -19,8 +22,8 @@ public class UserModel {
     @Column(nullable = false)
     private String password;
 
-    @NotEmpty
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role;
 

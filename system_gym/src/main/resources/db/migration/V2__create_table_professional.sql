@@ -9,7 +9,7 @@ CREATE TABLE tb_professional
     updated_date    date,
     office          VARCHAR(255)                            NOT NULL,
     surname         VARCHAR(255),
-    time_type           time_type                            NOT NULL,
+    time_type       VARCHAR(10)                             NOT NULL,
     id_user         VARCHAR(255)                            NOT NULL,
     CONSTRAINT pk_tb_professional PRIMARY KEY (id_professional)
 );
