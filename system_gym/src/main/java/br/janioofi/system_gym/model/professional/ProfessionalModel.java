@@ -1,6 +1,6 @@
 package br.janioofi.system_gym.model.professional;
 
-import br.janioofi.system_gym.model.user.UserModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_professional")
@@ -40,13 +41,13 @@ public class ProfessionalModel {
     @Column(unique = true, nullable = false)
     private String cpf;
 
-    @NotEmpty
     @NotNull
     @Column(name = "admission_date",nullable = false)
     private LocalDate admissionDate;
 
     @Column(name = "updated_date")
-    private LocalDate updatedDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime updatedDate;
 
     @NotEmpty
     @NotNull
@@ -55,33 +56,21 @@ public class ProfessionalModel {
 
     private String surname;
 
-    @NotEmpty
-    @NotNull
     @Column(name = "time_type",nullable = false)
     @Enumerated(EnumType.STRING)
     private TimeRole time;
 
-    @NotEmpty
-    @NotNull
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "id_user")
-    private UserModel user;
-
     public ProfessionalModel() {
     }
 
-    public ProfessionalModel(Long idProfessional, String name, String email, String phone, String cpf, LocalDate admissionDate, LocalDate updatedDate, String office, String surname, TimeRole time, UserModel user) {
-        this.idProfessional = idProfessional;
+    public ProfessionalModel(String name, String email, String phone, String cpf, String office, String surname, TimeRole time) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.cpf = cpf;
-        this.admissionDate = admissionDate;
-        this.updatedDate = updatedDate;
         this.office = office;
         this.surname = surname;
         this.time = time;
-        this.user = user;
     }
 
     public Long getIdProfessional() {
@@ -132,11 +121,11 @@ public class ProfessionalModel {
         this.admissionDate = admissionDate;
     }
 
-    public LocalDate getUpdatedDate() {
+    public LocalDateTime getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(LocalDate updatedDate) {
+    public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -162,13 +151,5 @@ public class ProfessionalModel {
 
     public void setTime(TimeRole time) {
         this.time = time;
-    }
-
-    public UserModel getUser() {
-        return user;
-    }
-
-    public void setUser(UserModel user) {
-        this.user = user;
     }
 }

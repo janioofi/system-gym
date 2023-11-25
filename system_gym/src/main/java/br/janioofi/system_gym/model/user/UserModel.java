@@ -30,8 +30,7 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String idUser, String login, String password, UserRole role) {
-        this.idUser = idUser;
+    public UserModel(String login, String password, UserRole role) {
         this.login = login;
         this.password = password;
         this.role = role;
