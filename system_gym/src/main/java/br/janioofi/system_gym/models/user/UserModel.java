@@ -3,6 +3,8 @@ package br.janioofi.system_gym.models.user;
 import br.janioofi.system_gym.models.converters.StatusConverter;
 import br.janioofi.system_gym.models.enums.Status;
 import br.janioofi.system_gym.models.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import org.hibernate.annotations.Where;
 @Table(name = "tb_user")
 @SQLDelete(sql = "UPDATE tb_user SET status = 'Inativo' WHERE id_user = ?")
 @Where(clause = "status = 'Ativo'")
+@JsonIgnoreProperties
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +38,7 @@ public class UserModel {
 
     @Column(length = 10, nullable = false)
     @Convert(converter = StatusConverter.class)
+    @JsonIgnore
     private Status status = Status.ACTIVE;
 
 

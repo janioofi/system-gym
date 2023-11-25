@@ -1,6 +1,7 @@
 package br.janioofi.system_gym.models.professional;
 
-import br.janioofi.system_gym.models.enums.TimeRole;
+import br.janioofi.system_gym.models.enums.Office;
+import br.janioofi.system_gym.models.enums.Time;
 
 public record ProfessionalDTO(
         Long idProfessional,
@@ -8,9 +9,9 @@ public record ProfessionalDTO(
         String email,
         String phone,
         String cpf,
-        String office,
+        Office office,
         String surname,
-        TimeRole time,
+        Time time,
         Long user
 ) {
 }

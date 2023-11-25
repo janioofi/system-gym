@@ -1,10 +1,14 @@
 package br.janioofi.system_gym.models.professional;
 
-import br.janioofi.system_gym.models.enums.TimeRole;
+import br.janioofi.system_gym.models.enums.Office;
+import br.janioofi.system_gym.models.enums.Time;
 import br.janioofi.system_gym.models.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
@@ -14,6 +18,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_professional")
+@JsonIgnoreProperties
 public class ProfessionalModel {
 
     @Id
@@ -51,16 +56,15 @@ public class ProfessionalModel {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime updatedDate;
 
-    @NotEmpty(message = "Office")
-    @NotNull
     @Column(nullable = false)
-    private String office;
+    @Enumerated(EnumType.STRING)
+    private Office office;
 
     private String surname;
 
     @Column(name = "time_type",nullable = false)
     @Enumerated(EnumType.STRING)
-    private TimeRole time;
+    private Time time;
 
     @NotNull
     @OneToOne
@@ -71,7 +75,7 @@ public class ProfessionalModel {
     public ProfessionalModel() {
     }
 
-    public ProfessionalModel(String name, String email, String phone, String cpf, String office, String surname, TimeRole time) {
+    public ProfessionalModel(String name, String email, String phone, String cpf, Office office, String surname, Time time) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -137,11 +141,11 @@ public class ProfessionalModel {
         this.updatedDate = updatedDate;
     }
 
-    public String getOffice() {
+    public Office getOffice() {
         return office;
     }
 
-    public void setOffice(String office) {
+    public void setOffice(Office office) {
         this.office = office;
     }
 
@@ -153,11 +157,11 @@ public class ProfessionalModel {
         this.surname = surname;
     }
 
-    public TimeRole getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(TimeRole time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

@@ -1,12 +1,12 @@
 package br.janioofi.system_gym.models.enums;
 
-public enum TimeRole {
+public enum Time {
     DAY("Day"),
     NIGHT("Night");
 
     private final String role;
 
-    TimeRole(String role){
+    Time(String role){
         this.role = role;
     }
 
