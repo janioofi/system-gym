@@ -9,7 +9,8 @@ CREATE TABLE tb_professional
     updated_date    TIMESTAMP WITHOUT TIME ZONE,
     office          VARCHAR(255)                            NOT NULL,
     surname         VARCHAR(255),
-    time_type       VARCHAR(10)                             NOT NULL,
+    time_type       VARCHAR(255)                            NOT NULL,
+    id_user    BIGINT,
     CONSTRAINT pk_tb_professional PRIMARY KEY (id_professional)
 );
 
@@ -18,3 +19,6 @@ ALTER TABLE tb_professional
 
 ALTER TABLE tb_professional
     ADD CONSTRAINT uc_tb_professional_email UNIQUE (email);
+
+ALTER TABLE tb_professional
+    ADD CONSTRAINT FK_TB_PROFESSIONAL_ON_USER_ID_USER FOREIGN KEY (id_user) REFERENCES tb_user (id_user);

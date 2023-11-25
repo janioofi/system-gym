@@ -1,5 +1,7 @@
-package br.janioofi.system_gym.model.professional;
+package br.janioofi.system_gym.models.professional;
 
+import br.janioofi.system_gym.models.enums.TimeRole;
+import br.janioofi.system_gym.models.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -49,7 +51,7 @@ public class ProfessionalModel {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime updatedDate;
 
-    @NotEmpty
+    @NotEmpty(message = "Office")
     @NotNull
     @Column(nullable = false)
     private String office;
@@ -59,6 +61,12 @@ public class ProfessionalModel {
     @Column(name = "time_type",nullable = false)
     @Enumerated(EnumType.STRING)
     private TimeRole time;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "id_user")
+    @Enumerated(EnumType.ORDINAL)
+    private UserModel user;
 
     public ProfessionalModel() {
     }
@@ -151,5 +159,13 @@ public class ProfessionalModel {
 
     public void setTime(TimeRole time) {
         this.time = time;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

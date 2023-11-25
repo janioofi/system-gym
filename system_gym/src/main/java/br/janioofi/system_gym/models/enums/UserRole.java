@@ -1,4 +1,4 @@
-package br.janioofi.system_gym.model.user;
+package br.janioofi.system_gym.models.enums;
 
 public enum UserRole {
     ADMIN("Admin"),

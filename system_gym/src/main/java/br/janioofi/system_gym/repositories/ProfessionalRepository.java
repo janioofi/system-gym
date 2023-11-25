@@ -1,6 +1,6 @@
-package br.janioofi.system_gym.repository;
+package br.janioofi.system_gym.repositories;
 
-import br.janioofi.system_gym.model.professional.ProfessionalModel;
+import br.janioofi.system_gym.models.professional.ProfessionalModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

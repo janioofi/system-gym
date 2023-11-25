@@ -1,31 +1,42 @@
-package br.janioofi.system_gym.model.user;
+package br.janioofi.system_gym.models.user;
 
+import br.janioofi.system_gym.models.converters.StatusConverter;
+import br.janioofi.system_gym.models.enums.Status;
+import br.janioofi.system_gym.models.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
-import java.util.UUID;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "tb_user")
+@SQLDelete(sql = "UPDATE tb_user SET status = 'Inativo' WHERE id_user = ?")
+@Where(clause = "status = 'Ativo'")
 public class UserModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    private String idUser;
+    private Long idUser;
 
-    @NotEmpty
+    @NotNull
+    @NotEmpty(message = "Not Empty")
     @Column(unique = true, length = 30, nullable = false)
     private String login;
 
-    @NotEmpty
+    @NotNull
+    @NotEmpty(message = "Not Empty")
     @Column(nullable = false)
     private String password;
 
-    @NotNull
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @Column(length = 10, nullable = false)
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
+
 
     public UserModel() {
     }
@@ -36,11 +47,11 @@ public class UserModel {
         this.role = role;
     }
 
-    public String getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
@@ -66,5 +77,13 @@ public class UserModel {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

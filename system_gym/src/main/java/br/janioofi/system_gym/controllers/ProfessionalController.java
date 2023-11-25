@@ -1,8 +1,8 @@
-package br.janioofi.system_gym.controller;
+package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.model.professional.ProfessionalDTO;
-import br.janioofi.system_gym.model.professional.ProfessionalModel;
-import br.janioofi.system_gym.service.ProfessionalService;
+import br.janioofi.system_gym.models.professional.ProfessionalDTO;
+import br.janioofi.system_gym.models.professional.ProfessionalModel;
+import br.janioofi.system_gym.services.ProfessionalService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,4 +30,11 @@ public class ProfessionalController {
     public ResponseEntity<ProfessionalModel> create(@RequestBody @Valid ProfessionalDTO professional){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(professional));
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        service.delete(id);
+    }
+
 }

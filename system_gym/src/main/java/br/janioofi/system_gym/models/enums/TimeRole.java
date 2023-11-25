@@ -1,4 +1,4 @@
-package br.janioofi.system_gym.model.professional;
+package br.janioofi.system_gym.models.enums;
 
 public enum TimeRole {
     DAY("Day"),

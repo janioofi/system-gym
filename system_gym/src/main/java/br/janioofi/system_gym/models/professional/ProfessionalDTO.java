@@ -1,6 +1,6 @@
-package br.janioofi.system_gym.model.professional;
+package br.janioofi.system_gym.models.professional;
 
-import java.time.LocalDate;
+import br.janioofi.system_gym.models.enums.TimeRole;
 
 public record ProfessionalDTO(
         Long idProfessional,
@@ -10,6 +10,7 @@ public record ProfessionalDTO(
         String cpf,
         String office,
         String surname,
-        TimeRole time
+        TimeRole time,
+        Long user
 ) {
 }
