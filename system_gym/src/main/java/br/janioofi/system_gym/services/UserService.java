@@ -31,7 +31,7 @@ public class UserService {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
 
         if(this.repository.findByLogin(user.login()) != null) {
@@ -63,7 +63,7 @@ public class UserService {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
 
         audit.setDate(LocalDateTime.now());

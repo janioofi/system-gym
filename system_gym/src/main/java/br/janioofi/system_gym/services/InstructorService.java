@@ -1,5 +1,6 @@
 package br.janioofi.system_gym.services;
 
+import br.janioofi.system_gym.exception.BusinessException;
 import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.instructor.InstructorDTO;
 import br.janioofi.system_gym.models.instructor.InstructorModel;
@@ -33,7 +34,7 @@ public class InstructorService {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
         try{
             if(professionalService.findById(instructorDTO.professional()) != null){

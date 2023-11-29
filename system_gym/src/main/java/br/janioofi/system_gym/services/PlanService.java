@@ -1,5 +1,7 @@
 package br.janioofi.system_gym.services;
 
+import br.janioofi.system_gym.exception.BusinessException;
+import br.janioofi.system_gym.exception.RecordNotFoundException;
 import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.plan.PlanDTO;
 import br.janioofi.system_gym.models.plan.PlanModel;
@@ -27,23 +29,27 @@ public class PlanService {
 
     public PlanModel create(PlanDTO plan){
         PlanModel data = new PlanModel();
-        AuditModel audit = new AuditModel();
         String ipMachine;
         String host;
+        AuditModel audit = new AuditModel();
         try {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
         data.setName(plan.name());
         data.setPrice(plan.price());
         data.setEffectiveDate(plan.effectiveDate());
         audit.setDate(LocalDateTime.now());
-        audit.setClassJava(InstructorService.class.toString());
+        audit.setClassJava(PlanService.class.toString());
         audit.setDescription("Trying to create a new named plan: " + plan.name());
         audit.setLocalAdress("IP: " + ipMachine + "\n Host: " + host);
         auditService.create(audit);
         return repository.save(data);
+    }
+
+    public PlanModel findById(Long id){
+        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 }

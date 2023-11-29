@@ -1,5 +1,7 @@
 package br.janioofi.system_gym.services;
 
+import br.janioofi.system_gym.exception.BusinessException;
+import br.janioofi.system_gym.exception.RecordNotFoundException;
 import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.professional.ProfessionalModel;
 import br.janioofi.system_gym.models.receptionist.ReceptionistDTO;
@@ -31,7 +33,7 @@ public class ReceptionistService {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
 
         ReceptionistModel data = new ReceptionistModel();
@@ -54,5 +56,9 @@ public class ReceptionistService {
             auditService.create(audit);
         }
         return repository.save(data);
+    }
+
+    public ReceptionistModel findById(Long id){
+        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 }

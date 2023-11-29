@@ -1,5 +1,6 @@
 package br.janioofi.system_gym.services;
 
+import br.janioofi.system_gym.exception.BusinessException;
 import br.janioofi.system_gym.exception.RecordNotFoundException;
 import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.professional.ProfessionalDTO;
@@ -31,16 +32,16 @@ public class ProfessionalService {
     }
 
     public ProfessionalModel create(ProfessionalDTO professional){
+        AuditModel audit = new AuditModel();
         ProfessionalModel data = new ProfessionalModel();
         UserModel user = new UserModel();
-        AuditModel audit = new AuditModel();
         String ipMachine;
         String host;
         try {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
 
         if(userService.findById(professional.user()) != null){
@@ -58,16 +59,13 @@ public class ProfessionalService {
             data.setAdmissionDate(LocalDate.now());
             data.setUpdatedDate(LocalDateTime.now());
             data.setUser(user);
-            audit.setDate(LocalDateTime.now());
-            audit.setClassJava(ProfessionalService.class.toString());
             audit.setDescription("Trying to create an professional with user id: " + data.getUser().getIdUser());
-            audit.setLocalAdress("IP: " + ipMachine + " Host: " + host);
         }catch (Exception e){
+            audit.setDescription("Failed when trying to create a new professional, error: " + e.getMessage());
+        }finally {
             audit.setDate(LocalDateTime.now());
             audit.setClassJava(ProfessionalService.class.toString());
-            audit.setDescription("Failed when trying to create a new professional, error: " + e.getMessage());
             audit.setLocalAdress("IP: " + ipMachine + " Host: " + host);
-        }finally {
             auditService.create(audit);
         }
         return repository.save(data);
@@ -78,14 +76,14 @@ public class ProfessionalService {
     }
 
     public void delete(Long id){
-        AuditModel audit = new AuditModel();
         String ipMachine;
+        AuditModel audit = new AuditModel();
         String host;
         try {
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             host = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
         audit.setDate(LocalDateTime.now());
         audit.setClassJava(ProfessionalService.class.toString());
