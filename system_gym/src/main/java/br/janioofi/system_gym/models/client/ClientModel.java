@@ -20,7 +20,7 @@ public class ClientModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_client", scale = )
+    @Column(name = "id_client")
     private Long idClient;
 
     @NotEmpty
