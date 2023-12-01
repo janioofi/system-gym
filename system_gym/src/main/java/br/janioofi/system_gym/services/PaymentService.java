@@ -5,15 +5,18 @@ import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.client.ClientModel;
 import br.janioofi.system_gym.models.payment.PaymentDTO;
 import br.janioofi.system_gym.models.payment.PaymentModel;
+import br.janioofi.system_gym.models.payment.PaymentResponse;
 import br.janioofi.system_gym.models.plan.PlanModel;
 import br.janioofi.system_gym.models.receptionist.ReceptionistModel;
 import br.janioofi.system_gym.repositories.PaymentRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
@@ -22,20 +25,22 @@ public class PaymentService {
     private final PlanService planService;
     private final ReceptionistService receptionistService;
     private final AuditService auditService;
+    private final ModelMapper mapper;
 
-    public PaymentService(PaymentRepository repository, ClientService clientService, PlanService planService, ReceptionistService receptionistService, AuditService auditService) {
+    public PaymentService(PaymentRepository repository, ClientService clientService, PlanService planService, ReceptionistService receptionistService, AuditService auditService, ModelMapper mapper) {
         this.repository = repository;
         this.clientService = clientService;
         this.planService = planService;
         this.receptionistService = receptionistService;
         this.auditService = auditService;
+        this.mapper = mapper;
     }
 
-    public List<PaymentModel> findAll(){
-        return repository.findAll();
+    public List<PaymentResponse> findAll(){
+        return repository.findAll().stream().map(e -> mapper.map(e, PaymentResponse.class)).collect(Collectors.toList());
     }
 
-    public PaymentModel create(PaymentDTO paymentDTO){
+    public PaymentResponse create(PaymentDTO paymentDTO){
         ClientModel client = new ClientModel();
         ReceptionistModel receptionist = new ReceptionistModel();
         PlanModel plan = new PlanModel();
@@ -70,6 +75,8 @@ public class PaymentService {
         audit.setDescription("Trying to make a payment with the plan: " + plan.getName() + ", for the client: " + client.getName());
         audit.setLocalAdress("IP: " + ipMachine + " Host: " + host);
         auditService.create(audit);
-        return repository.save(payment);
+        repository.save(payment);
+        PaymentResponse paymentResponse = mapper.map(payment, PaymentResponse.class);
+        return paymentResponse;
     }
 }

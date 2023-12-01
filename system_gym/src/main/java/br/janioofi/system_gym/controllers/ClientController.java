@@ -33,7 +33,6 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-
     public ClientModel findById(@PathVariable Long id){
         return service.findById(id);
     }
