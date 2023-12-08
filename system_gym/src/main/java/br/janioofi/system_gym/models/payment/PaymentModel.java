@@ -30,6 +30,10 @@ public class PaymentModel {
     private BigDecimal value;
 
     @NotNull
+    @Column(name = "month_payment", length = 2)
+    private Integer monthPayment;
+
+    @NotNull
     @Column(name = "form_payment", nullable = false)
     @Enumerated(EnumType.STRING)
     private FormPayment formPayment;
@@ -52,12 +56,13 @@ public class PaymentModel {
     @Enumerated(EnumType.ORDINAL)
     private PlanModel plan;
 
-    public PaymentModel(BigDecimal value, FormPayment formPayment, ClientModel client, ReceptionistModel receptionist, PlanModel plan) {
+    public PaymentModel(BigDecimal value, FormPayment formPayment, ClientModel client, ReceptionistModel receptionist, PlanModel plan, Integer monthPayment) {
         this.value = value;
         this.formPayment = formPayment;
         this.client = client;
         this.receptionist = receptionist;
         this.plan = plan;
+        this.monthPayment = monthPayment;
     }
 
     public PaymentModel() {
@@ -117,5 +122,13 @@ public class PaymentModel {
 
     public void setReceptionist(ReceptionistModel receptionist) {
         this.receptionist = receptionist;
+    }
+
+    public Integer getMonthPayment() {
+        return monthPayment;
+    }
+
+    public void setMonthPayment(Integer monthPayment) {
+        this.monthPayment = monthPayment;
     }
 }

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 public record PaymentDTO(BigDecimal value,
                          FormPayment formPayment,
+                         Integer monthPayment,
                          Long client,
                          Long receptionist,
                          Long plan) {

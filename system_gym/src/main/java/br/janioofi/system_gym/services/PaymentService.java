@@ -60,6 +60,7 @@ public class PaymentService {
         payment.setPlan(plan);
         payment.setReceptionist(receptionist);
         payment.setValue(paymentDTO.value());
+        payment.setMonthPayment(paymentDTO.monthPayment());
         payment.setFormPayment(paymentDTO.formPayment());
 
         String ipMachine;

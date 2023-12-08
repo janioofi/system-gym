@@ -6,7 +6,8 @@ public record ClientDTO(
         String name,
         String cpf,
         LocalDate birthDate,
-        String dueDate,
+        Integer dueDate,
+        String email,
         Long receptionist,
         Long plan,
         Long user

@@ -73,6 +73,7 @@ public class ClientService {
         data.setUser(user);
         data.setReceptionist(receptionist);
         data.setPlan(plan);
+        data.setEmail(client.email());
 
         audit.setDate(LocalDateTime.now());
         audit.setClassJava(ClientService.class.toString());

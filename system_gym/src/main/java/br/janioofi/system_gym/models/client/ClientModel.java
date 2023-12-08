@@ -6,6 +6,7 @@ import br.janioofi.system_gym.models.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -50,9 +51,14 @@ public class ClientModel {
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
-    @NotEmpty
+    @NotNull
     @Column(length = 2)
-    private String dueDate;
+    private Integer dueDate;
+
+    @Email
+    @NotNull
+    @NotEmpty
+    private String email;
 
     @NotNull
     private Boolean active;
@@ -79,11 +85,15 @@ public class ClientModel {
     public ClientModel() {
     }
 
-    public ClientModel(String name, String cpf, LocalDate birthDate, String dueDate, ReceptionistModel receptionist, PlanModel plan, UserModel user) {
+    public ClientModel(String name, String cpf, LocalDate birthDate, LocalDate registerDate, LocalDateTime updatedDate, Integer dueDate, String email, Boolean active, ReceptionistModel receptionist, PlanModel plan, UserModel user) {
         this.name = name;
         this.cpf = cpf;
         this.birthDate = birthDate;
+        this.registerDate = registerDate;
+        this.updatedDate = updatedDate;
         this.dueDate = dueDate;
+        this.email = email;
+        this.active = active;
         this.receptionist = receptionist;
         this.plan = plan;
         this.user = user;
@@ -137,11 +147,11 @@ public class ClientModel {
         this.updatedDate = updatedDate;
     }
 
-    public String getDueDate() {
+    public Integer getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Integer dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -175,5 +185,13 @@ public class ClientModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

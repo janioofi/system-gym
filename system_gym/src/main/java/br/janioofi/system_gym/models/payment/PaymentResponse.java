@@ -10,6 +10,7 @@ public class PaymentResponse{
     private BigDecimal value;
     @JsonFormat(pattern = "yyyy-MM-dd HH:ss")
     private LocalDateTime datePayment;
+    private Integer monthPayment;
     private FormPayment formPayment;
     private Long client;
     private Long receptionist;
@@ -18,13 +19,14 @@ public class PaymentResponse{
     public PaymentResponse() {
     }
 
-    public PaymentResponse(BigDecimal value, LocalDateTime datePayment, Long client, FormPayment formPayment, Long receptionist, Long plan) {
+    public PaymentResponse(BigDecimal value, LocalDateTime datePayment, Long client, FormPayment formPayment, Long receptionist, Long plan, Integer monthPayment) {
         this.value = value;
         this.datePayment = datePayment;
         this.client = client;
         this.formPayment = formPayment;
         this.receptionist = receptionist;
         this.plan = plan;
+        this.monthPayment = monthPayment;
     }
 
     public BigDecimal getValue() {
@@ -73,5 +75,13 @@ public class PaymentResponse{
 
     public void setPlan(Long plan) {
         this.plan = plan;
+    }
+
+    public Integer getMonthPayment() {
+        return monthPayment;
+    }
+
+    public void setMonthPayment(Integer monthPayment) {
+        this.monthPayment = monthPayment;
     }
 }
