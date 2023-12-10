@@ -5,6 +5,7 @@ import br.janioofi.system_gym.exception.RecordNotFoundException;
 import br.janioofi.system_gym.models.audit.AuditModel;
 import br.janioofi.system_gym.models.client.ClientDTO;
 import br.janioofi.system_gym.models.client.ClientModel;
+import br.janioofi.system_gym.models.email.EmailRequestDTO;
 import br.janioofi.system_gym.models.plan.PlanModel;
 import br.janioofi.system_gym.models.receptionist.ReceptionistModel;
 import br.janioofi.system_gym.models.user.UserModel;
@@ -24,13 +25,15 @@ public class ClientService {
     private final PlanService planService;
     private final ReceptionistService receptionistService;
     private final AuditService auditService;
+    private final EmailServiceClient emailServiceClient;
 
-    public ClientService(ClientRepository repository, UserService userService, PlanService planService, ReceptionistService receptionistService, AuditService auditService) {
+    public ClientService(ClientRepository repository, UserService userService, PlanService planService, ReceptionistService receptionistService, AuditService auditService, EmailServiceClient emailServiceClient) {
         this.repository = repository;
         this.userService = userService;
         this.planService = planService;
         this.receptionistService = receptionistService;
         this.auditService = auditService;
+        this.emailServiceClient = emailServiceClient;
     }
 
     public List<ClientModel> findAll(){
@@ -79,6 +82,8 @@ public class ClientService {
         audit.setClassJava(ClientService.class.toString());
         audit.setDescription("Trying to create a new user with name: " + client.name());
         audit.setLocalAdress("IP: " + ipMachine + " Host: " + host);
+        EmailRequestDTO emailRequest = new EmailRequestDTO(data.getEmail(),"Bem-vindo a academia","Seja bem-vindo Sr(a) " + data.getName() + ", Obrigado por confiar no nosso serviço, o plano escolhido pelo senhor foi o " + plan.getName() + ", com valor de R$ " + plan.getPrice());
+        emailServiceClient.sendEmail(emailRequest);
         auditService.create(audit);
         repository.save(data);
         return data;
