@@ -3,6 +3,7 @@ package br.janioofi.system_gym.services;
 import br.janioofi.system_gym.exception.BusinessException;
 import br.janioofi.system_gym.exception.RecordNotFoundException;
 import br.janioofi.system_gym.models.audit.AuditModel;
+import br.janioofi.system_gym.models.email.EmailRequestDTO;
 import br.janioofi.system_gym.models.professional.ProfessionalDTO;
 import br.janioofi.system_gym.models.professional.ProfessionalModel;
 import br.janioofi.system_gym.models.user.UserModel;
@@ -20,11 +21,13 @@ public class ProfessionalService {
     private final ProfessionalRepository repository;
     private final UserService userService;
     private final AuditService auditService;
+    private final EmailServiceClient emailServiceClient;
 
-    public ProfessionalService(ProfessionalRepository repository, UserService userService, AuditService auditService) {
+    public ProfessionalService(ProfessionalRepository repository, UserService userService, AuditService auditService, EmailServiceClient emailServiceClient) {
         this.repository = repository;
         this.userService = userService;
         this.auditService = auditService;
+        this.emailServiceClient = emailServiceClient;
     }
 
     public List<ProfessionalModel> findAll(){
@@ -68,6 +71,8 @@ public class ProfessionalService {
             audit.setLocalAdress("IP: " + ipMachine + " Host: " + host);
             auditService.create(audit);
         }
+        EmailRequestDTO emailRequest = new EmailRequestDTO(data.getEmail(),"Bem-vindo(a) " + data.getSurname(),"Seja bem-vindo Sr(a) " + data.getName() + ", obrigado por entrar para nosso time de profissionais, seu cargo é: " + data.getOffice() + ", e seu turno é: " + data.getTime());
+        emailServiceClient.sendEmail(emailRequest);
         return repository.save(data);
     }
 
