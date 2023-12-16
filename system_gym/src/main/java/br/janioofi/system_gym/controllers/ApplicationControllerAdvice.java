@@ -1,13 +1,11 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.exception.BusinessException;
-import br.janioofi.system_gym.exception.RecordNotFoundException;
+import br.janioofi.system_gym.domain.exceptions.BusinessException;
+import br.janioofi.system_gym.domain.exceptions.RecordNotFoundException;
 import jakarta.validation.ConstraintViolationException;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

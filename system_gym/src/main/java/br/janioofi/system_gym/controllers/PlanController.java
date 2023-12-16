@@ -1,8 +1,8 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.models.plan.PlanDTO;
-import br.janioofi.system_gym.models.plan.PlanModel;
-import br.janioofi.system_gym.services.PlanService;
+import br.janioofi.system_gym.domain.models.plan.PlanDTO;
+import br.janioofi.system_gym.domain.models.plan.PlanModel;
+import br.janioofi.system_gym.domain.services.PlanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

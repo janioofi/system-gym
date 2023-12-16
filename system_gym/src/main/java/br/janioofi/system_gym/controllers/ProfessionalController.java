@@ -1,8 +1,8 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.models.professional.ProfessionalDTO;
-import br.janioofi.system_gym.models.professional.ProfessionalModel;
-import br.janioofi.system_gym.services.ProfessionalService;
+import br.janioofi.system_gym.domain.models.professional.ProfessionalDTO;
+import br.janioofi.system_gym.domain.models.professional.ProfessionalModel;
+import br.janioofi.system_gym.domain.services.ProfessionalService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

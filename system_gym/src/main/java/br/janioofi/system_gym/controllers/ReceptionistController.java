@@ -1,8 +1,8 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.models.receptionist.ReceptionistDTO;
-import br.janioofi.system_gym.models.receptionist.ReceptionistModel;
-import br.janioofi.system_gym.services.ReceptionistService;
+import br.janioofi.system_gym.domain.models.receptionist.ReceptionistDTO;
+import br.janioofi.system_gym.domain.models.receptionist.ReceptionistModel;
+import br.janioofi.system_gym.domain.services.ReceptionistService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

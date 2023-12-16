@@ -1,9 +1,8 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.models.payment.PaymentDTO;
-import br.janioofi.system_gym.models.payment.PaymentModel;
-import br.janioofi.system_gym.models.payment.PaymentResponse;
-import br.janioofi.system_gym.services.PaymentService;
+import br.janioofi.system_gym.domain.models.payment.PaymentDTO;
+import br.janioofi.system_gym.domain.models.payment.PaymentResponse;
+import br.janioofi.system_gym.domain.services.PaymentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

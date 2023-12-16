@@ -6,7 +6,7 @@ CREATE TABLE tb_client
     birth_date      date                                    NOT NULL,
     register_date   date                                    NOT NULL,
     updated_date    TIMESTAMP WITHOUT TIME ZONE             NOT NULL,
-    due_date        INTEGER,
+    due_date        INTEGER                                 NOT NULL,
     email           VARCHAR(255)                            NOT NULL,
     active          BOOLEAN                                 NOT NULL,
     id_receptionist BIGINT                                  NOT NULL,

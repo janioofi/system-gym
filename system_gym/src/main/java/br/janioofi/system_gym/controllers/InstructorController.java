@@ -1,8 +1,8 @@
 package br.janioofi.system_gym.controllers;
 
-import br.janioofi.system_gym.models.instructor.InstructorDTO;
-import br.janioofi.system_gym.models.instructor.InstructorModel;
-import br.janioofi.system_gym.services.InstructorService;
+import br.janioofi.system_gym.domain.models.instructor.InstructorDTO;
+import br.janioofi.system_gym.domain.models.instructor.InstructorModel;
+import br.janioofi.system_gym.domain.services.InstructorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
